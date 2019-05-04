@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findUserById(int userId) throws IOException {
+    public User findUserById(int userId) throws Exception {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserDao userMapper = sqlSession.getMapper(UserDao.class);
         User user = userMapper.findUserById(userId);
@@ -28,7 +28,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findUserByName(String username) throws IOException {
+    public User findUserByName(String username) throws Exception {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserDao userMapper = sqlSession.getMapper(UserDao.class);
         User user = userMapper.findUserByName(username);
@@ -36,22 +36,19 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void inserUser(User user) throws IOException {
+    public void inserUser(User user) throws Exception {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserDao userMapper = sqlSession.getMapper(UserDao.class);
         userMapper.inserUser(user);
-        sqlSession.commit();
-        sqlSession.close();
+
     }
 
     @Override
-    public void deleteUserById(int userId) throws IOException {
+    public void deleteUserById(int userId) throws Exception {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserDao userMapper = sqlSession.getMapper(UserDao.class);
 
         userMapper.deleteUserById(userId);
-        sqlSession.commit();
-        sqlSession.close();
     }
 
     @Override
@@ -61,8 +58,6 @@ public class UserDaoImpl implements UserDao {
         UserDao userMapper = sqlSession.getMapper(UserDao.class);
 
         userMapper.updateUser(user);
-        sqlSession.commit();
-        sqlSession.close();
     }
 
     @Override

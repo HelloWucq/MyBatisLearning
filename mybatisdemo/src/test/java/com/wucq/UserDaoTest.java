@@ -33,20 +33,20 @@ public class UserDaoTest
     
 
     @Test
-    public void findUserByIdTest() throws IOException{
+    public void findUserByIdTest() throws Exception{
         UserDao userDao=new UserDaoImpl(sqlSessionFactory);
         User user = userDao.findUserById(3);  
         logger.info("the username is {}",user.getUsername());
     }
     
     @Test
-    public void findUserByNameTest() throws IOException{
+    public void findUserByNameTest() throws Exception{
         UserDao userDao=new UserDaoImpl(sqlSessionFactory);
         User user = userDao.findUserByName("wu");  
     }
 
     @Test
-    public void insertUserTest() throws IOException{
+    public void insertUserTest() throws Exception{
         UserDao userDao=new UserDaoImpl(sqlSessionFactory);
         User user=new User();
         user.setUsername("wucq");
@@ -56,7 +56,7 @@ public class UserDaoTest
     }
 
     @Test
-    public void deleteUserByIdTest() throws IOException{
+    public void deleteUserByIdTest() throws Exception{
         UserDao userDao=new UserDaoImpl(sqlSessionFactory);
         userDao.deleteUserById(1);  
     }
