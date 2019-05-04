@@ -27,7 +27,7 @@ private static final Logger logger=LoggerFactory.getLogger(UserDaoTest.class);
         BasicConfigurator.configure();
         SqlSession sqlSession = getSessionFactory().openSession();  
         UserDao userMapper = sqlSession.getMapper(UserDao.class);  
-        User user = userMapper.findUserById(2);  
+        User user = userMapper.findUserById(3);  
         logger.info("the username is {}",user.getUsername());
     }
     
