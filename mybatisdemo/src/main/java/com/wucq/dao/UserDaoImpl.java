@@ -68,4 +68,20 @@ public class UserDaoImpl implements UserDao {
         List<User>result=userMapper.findAllUsers();
         return result;
     }
+
+    @Override
+    public int saveUserBatch(List<User> list) throws Exception {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserDao userMapper = sqlSession.getMapper(UserDao.class);
+        int result=userMapper.saveUserBatch(list);
+        return result;
+    }
+
+    @Override
+    public int delUserBatch(List<Integer> list) throws Exception {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserDao userMapper = sqlSession.getMapper(UserDao.class);
+        int result=userMapper.delUserBatch(list);
+        return result;
+    }
 }

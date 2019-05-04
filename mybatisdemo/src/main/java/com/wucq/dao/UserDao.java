@@ -21,5 +21,9 @@ public interface UserDao {
     public void deleteUserById(int userId) throws Exception;
 
     public void updateUser(User user) throws Exception;
+
+    public int saveUserBatch(List<User> list) throws Exception;
+
+    public int delUserBatch(List<Integer>list) throws Exception;
     
 }

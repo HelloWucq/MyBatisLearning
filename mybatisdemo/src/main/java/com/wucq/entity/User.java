@@ -12,6 +12,14 @@ public class User implements Serializable{
     private String birthday;
     private int sex;
     private String address;
+
+    public User(int id,String username,String birthday,int sex,String address){
+        this.id=id;
+        this.username=username;
+        this.birthday=birthday;
+        this.sex=sex;
+        this.address=address;
+    }
     
     /**
      * @return the id

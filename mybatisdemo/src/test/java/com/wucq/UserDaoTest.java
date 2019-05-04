@@ -1,7 +1,5 @@
 package com.wucq;
 
-import java.io.IOException;
-
 import com.wucq.dao.UserDao;
 import com.wucq.dao.UserDaoImpl;
 import com.wucq.entity.User;
@@ -43,15 +41,13 @@ public class UserDaoTest
     public void findUserByNameTest() throws Exception{
         UserDao userDao=new UserDaoImpl(sqlSessionFactory);
         User user = userDao.findUserByName("wu");  
+        logger.info("the username is {}",user.getUsername());
     }
 
     @Test
     public void insertUserTest() throws Exception{
         UserDao userDao=new UserDaoImpl(sqlSessionFactory);
-        User user=new User();
-        user.setUsername("wucq");
-        user.setBirthday("1998526");
-        user.setSex(0);
+        User user=new User(3,"wucq3","19940323",1,"ln");
         userDao.inserUser(user);  
     }
 
@@ -64,7 +60,7 @@ public class UserDaoTest
     @Test
     public void updateUserTest() throws Exception{
         UserDao userDao=new UserDaoImpl(sqlSessionFactory);
-        User user=new User();
+        User user=new User(2,"wucq1","19940322",1,"sh");
         user.setUsername("wucq");
         user.setBirthday("1998526");
         user.setSex(0);
