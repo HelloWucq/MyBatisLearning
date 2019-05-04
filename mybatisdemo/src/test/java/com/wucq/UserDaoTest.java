@@ -3,13 +3,14 @@ package com.wucq;
 import java.io.IOException;
 
 import com.wucq.dao.UserDao;
+import com.wucq.dao.UserDaoImpl;
 import com.wucq.entity.User;
 
 import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.BasicConfigurator;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,81 +21,53 @@ import org.slf4j.LoggerFactory;
 public class UserDaoTest 
 
 {
-private static final Logger logger=LoggerFactory.getLogger(UserDaoTest.class);
+    private static final Logger logger=LoggerFactory.getLogger(UserDaoTest.class);
+    private SqlSessionFactory sqlSessionFactory = null;  
+    @Before
+    public void setUp() throws Exception{
 
-    @Test
-    public void findUserById() throws IOException{
         BasicConfigurator.configure();
-        SqlSession sqlSession = getSessionFactory().openSession();  
-        UserDao userMapper = sqlSession.getMapper(UserDao.class);  
-        User user = userMapper.findUserById(3);  
-        logger.info("the username is {}",user.getUsername());
-    }
-    
-    @Test
-    public void findUserByName() throws IOException{
-        BasicConfigurator.configure();
-        SqlSession sqlSession = getSessionFactory().openSession();  
-        UserDao userMapper = sqlSession.getMapper(UserDao.class);  
-        User user = userMapper.findUserByName("wu");  
-        logger.info("the username is {}",user.getUsername());
-    }
-
-    @Test
-    public void insertUser() throws IOException{
-        BasicConfigurator.configure();
-        SqlSession sqlSession = getSessionFactory().openSession();  
-        UserDao userMapper = sqlSession.getMapper(UserDao.class);  
-
-        User user=new User();
-        user.setUsername("wucq1");
-        user.setBirthday("birthday");
-        user.setSex(12);
-        user.setAddress("address");
-        userMapper.inserUser(user);
-        sqlSession.commit();
-        sqlSession.close();
-    }
-
-    @Test
-    public void deleteUser() throws IOException{
-        BasicConfigurator.configure();
-        SqlSession sqlSession = getSessionFactory().openSession();  
-        UserDao userMapper = sqlSession.getMapper(UserDao.class); 
-
-        userMapper.deleteUserById(2);
-        sqlSession.commit();
-        sqlSession.close();
-    }
-
-    @Test
-    public void updateUser() {
-        
-        BasicConfigurator.configure();
-        SqlSession sqlSession = getSessionFactory().openSession();  
-        UserDao userMapper = sqlSession.getMapper(UserDao.class); 
-
-        User user=new User();
-        user.setUsername("wucq2");
-        user.setBirthday("19990205");
-        user.setSex(0);
-        user.setAddress("bj");
-
-        userMapper.updateUserById(user);
-        sqlSession.commit();
-        sqlSession.close();
-
-    }
-
-    
-    private static SqlSessionFactory getSessionFactory() {  
-        SqlSessionFactory sessionFactory = null;  
         String resource = "sqlConfig.xml";  
-        try {  
-            sessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader(resource));
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }  
-        return sessionFactory;  
-    }  
+        sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader(resource));
+    }
+    
+
+    @Test
+    public void findUserByIdTest() throws IOException{
+        UserDao userDao=new UserDaoImpl(sqlSessionFactory);
+        User user = userDao.findUserById(3);  
+        logger.info("the username is {}",user.getUsername());
+    }
+    
+    @Test
+    public void findUserByNameTest() throws IOException{
+        UserDao userDao=new UserDaoImpl(sqlSessionFactory);
+        User user = userDao.findUserByName("wu");  
+    }
+
+    @Test
+    public void insertUserTest() throws IOException{
+        UserDao userDao=new UserDaoImpl(sqlSessionFactory);
+        User user=new User();
+        user.setUsername("wucq");
+        user.setBirthday("1998526");
+        user.setSex(0);
+        userDao.inserUser(user);  
+    }
+
+    @Test
+    public void deleteUserByIdTest() throws IOException{
+        UserDao userDao=new UserDaoImpl(sqlSessionFactory);
+        userDao.deleteUserById(1);  
+    }
+
+    @Test
+    public void updateUserTest() throws Exception{
+        UserDao userDao=new UserDaoImpl(sqlSessionFactory);
+        User user=new User();
+        user.setUsername("wucq");
+        user.setBirthday("1998526");
+        user.setSex(0);
+        userDao.updateUser(user);  
+    }
 }

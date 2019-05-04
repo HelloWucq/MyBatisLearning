@@ -1,5 +1,6 @@
 package com.wucq.dao;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.wucq.entity.*;
@@ -7,20 +8,18 @@ import com.wucq.entity.*;
 /**
  * UserDao
  */
-public interface UserDao {
+public interface UserDao  {
 
-    public void insert(User user);  
+    public User findUserById(int userId) throws IOException;
 
-    public User findUserById(int userId);
+    public User findUserByName(String username) throws IOException; 
 
-    public User findUserByName(String username);
+    public List<User> findAllUsers() throws Exception;
 
-    public List<User> findAllUsers();
+    public void inserUser(User user) throws IOException;
 
-    public void inserUser(User user);
+    public void deleteUserById(int userId) throws IOException;
 
-    public void deleteUserById(int userId);
-
-    public void updateUserById(User user);
+    public void updateUser(User user) throws Exception;
     
 }

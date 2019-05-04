@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         DELETE FROM user WHERE id=#{id}
     </delete>
 
-    <update id="updateUserById" parameterType="com.wucq.entity.User">
+    <update id="updateUser" parameterType="com.wucq.entity.User">
         UPDATE user SET username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} WHERE id=#{id}
     </update>
 </mapper>
